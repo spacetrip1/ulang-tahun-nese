@@ -238,33 +238,203 @@
       50% { opacity: 1; transform: scaleY(1.15); }
     }
 
-    /* music toggle */
-    #music-btn {
+    /* ============================================================
+       MUSIC PLAYER — tombol & panel di pojok kanan bawah
+       ============================================================ */
+
+    /* Wrapper utama — fixed di kanan bawah */
+    #music-player {
       position: fixed;
       bottom: 2rem;
       right: 2rem;
       z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.6rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 2.5s forwards;
+    }
+
+    /* Panel info lagu — muncul saat playing */
+    #music-panel {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(8,11,18,0.82);
+      border: 1px solid var(--border-glow);
+      backdrop-filter: blur(20px);
+      border-radius: 50px;
+      padding: 0.55rem 1.1rem 0.55rem 0.8rem;
+      transform: translateX(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      white-space: nowrap;
+      max-width: 260px;
+    }
+    #music-panel.visible {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: all;
+    }
+
+    /* Equalizer bars — animasi saat musik playing */
+    .eq-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+    .eq-bar {
+      width: 3px;
+      border-radius: 2px;
+      background: var(--accent);
+      transform-origin: bottom;
+      animation: eqBounce 0s ease-in-out infinite alternate;
+    }
+    /* Setiap bar punya timing berbeda → terlihat dinamis */
+    .eq-bar:nth-child(1) { height: 6px;  animation-duration: 0.4s; animation-delay: 0s; }
+    .eq-bar:nth-child(2) { height: 14px; animation-duration: 0.5s; animation-delay: 0.1s; }
+    .eq-bar:nth-child(3) { height: 9px;  animation-duration: 0.35s; animation-delay: 0.05s; }
+    .eq-bar:nth-child(4) { height: 12px; animation-duration: 0.45s; animation-delay: 0.15s; }
+    .eq-bar:nth-child(5) { height: 5px;  animation-duration: 0.38s; animation-delay: 0.08s; }
+
+    /* Saat paused — animasi berhenti */
+    #music-player.paused .eq-bar { animation-play-state: paused; }
+
+    @keyframes eqBounce {
+      from { transform: scaleY(0.25); opacity: 0.5; }
+      to   { transform: scaleY(1);    opacity: 1; }
+    }
+
+    /* Nama lagu */
+    .music-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .music-label strong {
+      display: block;
+      color: var(--text-primary);
+      font-weight: 400;
+      font-size: 0.78rem;
+    }
+
+    /* Volume slider */
+    .vol-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+    .vol-icon { font-size: 0.75rem; color: var(--text-subtle); }
+    #vol-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 56px;
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+      accent-color: var(--accent);
+    }
+    #vol-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+    }
+
+    /* Tombol play/pause utama */
+    #music-btn {
       width: 46px; height: 46px;
       border-radius: 50%;
       border: 1px solid var(--border-glow);
       background: rgba(200,169,126,0.08);
       backdrop-filter: blur(12px);
       color: var(--accent);
-      font-size: 1.1rem;
+      font-size: 1rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-      opacity: 0;
-      animation: fadeUp 1s ease 2.5s forwards;
+      position: relative;
+      flex-shrink: 0;
     }
     #music-btn:hover {
       background: var(--accent-soft);
       transform: scale(1.1);
-      box-shadow: 0 0 20px var(--accent-glow);
+      box-shadow: 0 0 24px var(--accent-glow);
     }
-    #music-btn.playing { background: var(--accent-soft); }
+
+    /* Ring pulse saat playing */
+    #music-btn::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 1px solid var(--accent);
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    #music-player.playing #music-btn::before {
+      animation: ringPulse 2s ease-in-out infinite;
+    }
+    @keyframes ringPulse {
+      0%   { opacity: 0.6; transform: scale(1); }
+      100% { opacity: 0;   transform: scale(1.55); }
+    }
+
+    /* Spinner saat loading */
+    #music-btn .spin {
+      width: 18px; height: 18px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Toast notifikasi error kecil */
+    #music-toast {
+      position: fixed;
+      bottom: 5.5rem;
+      right: 2rem;
+      z-index: 201;
+      background: rgba(220,80,80,0.15);
+      border: 1px solid rgba(220,80,80,0.35);
+      color: #e08080;
+      font-size: 0.75rem;
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      max-width: 220px;
+      line-height: 1.5;
+    }
+    #music-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      #music-player { bottom: 1.2rem; right: 1.2rem; }
+      #music-toast  { bottom: 5rem; right: 1.2rem; }
+      #music-panel  { max-width: 200px; }
+    }
 
     /* ============================================================
        SECTION 2 — PESAN UTAMA
@@ -662,19 +832,61 @@
   </nav>
 
   <!-- ============================================================
-       TOMBOL MUSIK — opsional, ada di pojok kanan bawah
+       MUSIC PLAYER — panel mini + tombol di pojok kanan bawah
        ============================================================ -->
-  <button id="music-btn" title="Putar / Pause Musik">
-    🎵
-  </button>
+  <div id="music-player">
+
+    <!-- Panel info (muncul saat musik playing) -->
+    <div id="music-panel">
+      <!-- Equalizer bars animasi -->
+      <div class="eq-bars" aria-hidden="true">
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+      </div>
+
+      <!-- Nama lagu — EDIT THIS jika ingin ganti teks -->
+      <div class="music-label">
+        <strong id="music-title">lagu.mp3</strong>
+        Sedang diputar
+      </div>
+
+      <!-- Volume slider -->
+      <div class="vol-wrap" title="Volume">
+        <span class="vol-icon">🔈</span>
+        <input type="range" id="vol-slider" min="0" max="1" step="0.05" value="0.7">
+      </div>
+    </div>
+
+    <!-- Tombol utama play/pause -->
+    <button id="music-btn" title="Putar / Pause Musik" aria-label="Putar musik">
+      🎵
+    </button>
+
+  </div>
+
+  <!-- Toast notif error kecil -->
+  <div id="music-toast"></div>
 
   <!-- ============================================================
        AUDIO — Ganti URL di sumber (src) dengan link lagu Anda
        Format yang didukung: mp3, ogg
        ============================================================ -->
- <audio id="bg-music" loop>
-  <source src="https://spacetrip1.github.io/ulang-tahun-nese/audio/lagu.mp3" type="audio/mpeg">
-</audio>
+  <!-- ============================================================
+       AUDIO — File lagu.mp3 ada di folder audio/
+       Struktur folder yang benar:
+         index.html          ← file ini
+         audio/
+           lagu.mp3          ← file musikmu di sini
+
+       EDIT THIS: Ganti path di bawah jika nama folder/file berbeda
+       ============================================================ -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="audio/lagu.mp3" type="audio/mpeg">
+    <source src="audio/lagu.ogg" type="audio/ogg">
+  </audio>
   <!-- ============================================================
        SECTION 1: LANDING / HALAMAN PEMBUKA
        ============================================================ -->
@@ -996,32 +1208,210 @@
     revealEls.forEach(el => observer.observe(el));
 
     /* ============================================================
-       3. MUSIK LATAR — toggle play/pause saat tombol ditekan
+       3. SISTEM MUSIK — robust, dengan loading state, error handling,
+          volume control, dan visual feedback lengkap
        ============================================================ */
-    const musicBtn   = document.getElementById('music-btn');
-    const bgMusic    = document.getElementById('bg-music');
-    let   isPlaying  = false;
+    (function() {
+      const player    = document.getElementById('music-player');
+      const btn       = document.getElementById('music-btn');
+      const panel     = document.getElementById('music-panel');
+      const audio     = document.getElementById('bg-music');
+      const volSlider = document.getElementById('vol-slider');
+      const toast     = document.getElementById('music-toast');
+      const titleEl   = document.getElementById('music-title');
 
-    musicBtn.addEventListener('click', () => {
-      if (isPlaying) {
-        bgMusic.pause();
-        musicBtn.textContent = '🎵';
-        musicBtn.classList.remove('playing');
-      } else {
-        // Hanya mulai jika ada sumber audio yang ditambahkan
-        if (bgMusic.src && bgMusic.src !== window.location.href) {
-          bgMusic.play().catch(() => {});
-          musicBtn.textContent = '⏸';
-          musicBtn.classList.add('playing');
+      /* ── State ── */
+      let state = 'idle'; // idle | loading | playing | paused | error
+
+      /* ── Ambil nama file dari src untuk ditampilkan di panel ── */
+      const srcEl = audio.querySelector('source');
+      if (srcEl) {
+        const parts = srcEl.src.split('/');
+        titleEl.textContent = decodeURIComponent(parts[parts.length - 1]);
+      }
+
+      /* ── Set volume awal dari slider ── */
+      audio.volume = parseFloat(volSlider.value);
+
+      /* ──────────────────────────────────────────
+         FUNGSI UTAMA: set state & update tampilan
+         ────────────────────────────────────────── */
+      function setState(newState) {
+        state = newState;
+        player.classList.remove('playing', 'paused', 'loading', 'error');
+
+        if (state === 'loading') {
+          btn.innerHTML = '<div class="spin"></div>';
+          panel.classList.remove('visible');
+        } else if (state === 'playing') {
+          btn.innerHTML = '⏸';
+          btn.setAttribute('aria-label', 'Pause musik');
+          player.classList.add('playing');
+          panel.classList.add('visible');
+          hideToast();
+        } else if (state === 'paused') {
+          btn.innerHTML = '▶';
+          btn.setAttribute('aria-label', 'Putar musik');
+          player.classList.add('paused');
+          panel.classList.add('visible');
+        } else if (state === 'error') {
+          btn.innerHTML = '🔇';
+          btn.setAttribute('aria-label', 'Musik tidak tersedia');
+          panel.classList.remove('visible');
         } else {
-          // Tidak ada sumber musik — tampilkan pesan sementara
-          musicBtn.textContent = '🚫';
-          setTimeout(() => { musicBtn.textContent = '🎵'; }, 1500);
-          return;
+          // idle
+          btn.innerHTML = '🎵';
+          btn.setAttribute('aria-label', 'Putar musik');
         }
       }
-      isPlaying = !isPlaying;
-    });
+
+      /* ── Toast notifikasi error ── */
+      let toastTimer = null;
+      function showToast(msg, duration = 4000) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(hideToast, duration);
+      }
+      function hideToast() {
+        toast.classList.remove('show');
+      }
+
+      /* ──────────────────────────────────────────
+         FUNGSI PLAY — dengan fade-in volume
+         ────────────────────────────────────────── */
+      function playMusic() {
+        // Jika sudah playing, tidak perlu reload
+        if (state === 'playing') return;
+
+        setState('loading');
+
+        /* Pastikan src ada dan valid */
+        const srcTag = audio.querySelector('source');
+        if (!srcTag || !srcTag.getAttribute('src')) {
+          setState('error');
+          showToast('❌ Tidak ada file audio. Tambahkan src di tag <source>.');
+          return;
+        }
+
+        /* Jika audio belum pernah di-load, muat dulu */
+        if (audio.readyState < 2) {
+          audio.load();
+        }
+
+        /* Volume mulai dari 0, lalu fade in */
+        audio.volume = 0;
+        audio.play()
+          .then(() => {
+            setState('playing');
+            fadeVolume(audio, parseFloat(volSlider.value), 800);
+          })
+          .catch(err => {
+            console.error('[Music] Gagal play:', err);
+            setState('error');
+
+            if (err.name === 'NotAllowedError') {
+              showToast('🔇 Browser memblokir autoplay. Klik tombol untuk memulai musik.', 5000);
+              setState('idle'); // biarkan user coba lagi
+            } else if (err.name === 'NotSupportedError') {
+              showToast('❌ Format audio tidak didukung browser ini.');
+            } else {
+              showToast('❌ File audio tidak ditemukan.\nPastikan folder: audio/lagu.mp3');
+            }
+          });
+      }
+
+      /* ── Fade volume (dari → ke) dalam durasi ms ── */
+      function fadeVolume(audioEl, targetVol, durationMs) {
+        const startVol  = audioEl.volume;
+        const startTime = performance.now();
+        function step(now) {
+          const elapsed  = now - startTime;
+          const progress = Math.min(elapsed / durationMs, 1);
+          audioEl.volume = startVol + (targetVol - startVol) * easeOut(progress);
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+      /* ──────────────────────────────────────────
+         FUNGSI PAUSE — dengan fade-out volume
+         ────────────────────────────────────────── */
+      function pauseMusic() {
+        if (state !== 'playing') return;
+        const targetVol = parseFloat(volSlider.value);
+        fadeVolume(audio, 0, 500);
+        setTimeout(() => {
+          audio.pause();
+          audio.volume = targetVol; // restore untuk play berikutnya
+          setState('paused');
+        }, 520);
+      }
+
+      /* ──────────────────────────────────────────
+         EVENT: Klik tombol
+         ────────────────────────────────────────── */
+      btn.addEventListener('click', () => {
+        if (state === 'loading') return; // jangan double-click saat loading
+
+        if (state === 'playing') {
+          pauseMusic();
+        } else {
+          playMusic();
+        }
+      });
+
+      /* ──────────────────────────────────────────
+         EVENT: Volume slider
+         ────────────────────────────────────────── */
+      volSlider.addEventListener('input', () => {
+        const v = parseFloat(volSlider.value);
+        audio.volume = v;
+        // Ganti ikon volume sesuai level
+        const volIcon = document.querySelector('.vol-icon');
+        if (volIcon) {
+          volIcon.textContent = v === 0 ? '🔇' : v < 0.4 ? '🔉' : '🔈';
+        }
+      });
+
+      /* ──────────────────────────────────────────
+         EVENT: Audio native events
+         ────────────────────────────────────────── */
+
+      // Audio selesai load dan siap diputar
+      audio.addEventListener('canplaythrough', () => {
+        if (state === 'loading') {
+          // sudah loading → lanjutkan play (tapi audio.play() sudah di-call)
+        }
+      });
+
+      // Jika audio tiba-tiba berhenti karena buffering
+      audio.addEventListener('waiting', () => {
+        if (state === 'playing') setState('loading');
+      });
+
+      // Lanjut setelah buffering
+      audio.addEventListener('playing', () => {
+        if (state === 'loading') setState('playing');
+      });
+
+      // Error dari elemen audio
+      audio.addEventListener('error', (e) => {
+        const code = audio.error ? audio.error.code : 0;
+        setState('error');
+        const msg = code === 4
+          ? '❌ File tidak ditemukan.\nPastikan: audio/lagu.mp3 ada di repo.'
+          : '❌ Gagal memuat audio (kode: ' + code + ')';
+        showToast(msg, 6000);
+        console.error('[Music] Audio error code:', code, e);
+      });
+
+      // Jika halaman kehilangan fokus, jangan pause (musik tetap jalan)
+      // Ini normal behavior — tidak perlu handler khusus
+
+    })(); // end IIFE musik
 
     /* ============================================================
        4. MODAL PESAN RAHASIA
@@ -1130,4 +1520,5 @@
   </script>
 
 </body>
+</html>
 </html>
