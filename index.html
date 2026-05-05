@@ -4,22 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ============================================================
-       EDIT THIS: Ganti judul tab browser di bawah ini
-       ============================================================ -->
   <title>Selamat Ulang Tahun 🎂</title>
 
   <style>
-    /* ============================================================
-       FONTS — Google Fonts dimuat via @import
-       Cormorant Garamond: untuk heading (elegan, klasik)
-       DM Sans: untuk body text (modern, bersih)
-       ============================================================ */
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
-    /* ============================================================
-       CSS VARIABLES — Edit warna utama di sini
-       ============================================================ */
     :root {
       --bg-deep:      #080b12;
       --bg-mid:       #0d1120;
@@ -34,9 +23,7 @@
       --border-glow:  rgba(200,169,126,0.35);
     }
 
-    /* ============================================================
-       RESET & BASE
-       ============================================================ */
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html { scroll-behavior: smooth; }
@@ -52,16 +39,12 @@
 
     ::selection { background: var(--accent-glow); color: var(--accent); }
 
-    /* ============================================================
-       SCROLLBAR
-       ============================================================ */
+
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg-deep); }
     ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 
-    /* ============================================================
-       NAVIGATION
-       ============================================================ */
+ 
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -104,9 +87,7 @@
     nav a:hover { color: var(--accent); }
     nav a:hover::after { width: 100%; }
 
-    /* ============================================================
-       PARTICLE CANVAS (background stars)
-       ============================================================ */
+
     #particles {
       position: fixed;
       inset: 0;
@@ -114,9 +95,6 @@
       pointer-events: none;
     }
 
-    /* ============================================================
-       SECTIONS — shared layout
-       ============================================================ */
     section {
       position: relative;
       z-index: 1;
@@ -160,9 +138,6 @@
     }
     .divider span { font-size: 1.1rem; }
 
-    /* ============================================================
-       SECTION 1 — LANDING / HERO
-       ============================================================ */
     #landing {
       text-align: center;
       flex-direction: column;
@@ -238,11 +213,7 @@
       50% { opacity: 1; transform: scaleY(1.15); }
     }
 
-    /* ============================================================
-       MUSIC PLAYER — tombol & panel di pojok kanan bawah
-       ============================================================ */
 
-    /* Wrapper utama — fixed di kanan bawah */
     #music-player {
       position: fixed;
       bottom: 2rem;
@@ -256,7 +227,6 @@
       animation: fadeUp 1s ease 2.5s forwards;
     }
 
-    /* Panel info lagu — muncul saat playing */
     #music-panel {
       display: flex;
       align-items: center;
@@ -294,14 +264,12 @@
       transform-origin: bottom;
       animation: eqBounce 0s ease-in-out infinite alternate;
     }
-    /* Setiap bar punya timing berbeda → terlihat dinamis */
     .eq-bar:nth-child(1) { height: 6px;  animation-duration: 0.4s; animation-delay: 0s; }
     .eq-bar:nth-child(2) { height: 14px; animation-duration: 0.5s; animation-delay: 0.1s; }
     .eq-bar:nth-child(3) { height: 9px;  animation-duration: 0.35s; animation-delay: 0.05s; }
     .eq-bar:nth-child(4) { height: 12px; animation-duration: 0.45s; animation-delay: 0.15s; }
     .eq-bar:nth-child(5) { height: 5px;  animation-duration: 0.38s; animation-delay: 0.08s; }
 
-    /* Saat paused — animasi berhenti */
     #music-player.paused .eq-bar { animation-play-state: paused; }
 
     @keyframes eqBounce {
@@ -309,7 +277,6 @@
       to   { transform: scaleY(1);    opacity: 1; }
     }
 
-    /* Nama lagu */
     .music-label {
       font-size: 0.72rem;
       letter-spacing: 0.08em;
@@ -351,7 +318,6 @@
       cursor: pointer;
     }
 
-    /* Tombol play/pause utama */
     #music-btn {
       width: 46px; height: 46px;
       border-radius: 50%;
@@ -374,7 +340,6 @@
       box-shadow: 0 0 24px var(--accent-glow);
     }
 
-    /* Ring pulse saat playing */
     #music-btn::before {
       content: '';
       position: absolute;
@@ -393,7 +358,6 @@
       100% { opacity: 0;   transform: scale(1.55); }
     }
 
-    /* Spinner saat loading */
     #music-btn .spin {
       width: 18px; height: 18px;
       border: 2px solid var(--border);
@@ -405,7 +369,6 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Toast notifikasi error kecil */
     #music-toast {
       position: fixed;
       bottom: 5.5rem;
@@ -436,9 +399,6 @@
       #music-panel  { max-width: 200px; }
     }
 
-    /* ============================================================
-       SECTION 2 — PESAN UTAMA
-       ============================================================ */
     #pesan { background: transparent; }
 
     .pesan-label {
@@ -490,9 +450,6 @@
       line-height: 1.5;
     }
 
-    /* ============================================================
-       SECTION 3 — KENANGAN / MEMORIES
-       ============================================================ */
     #kenangan {
       background: linear-gradient(
         180deg,
@@ -583,9 +540,6 @@
       line-height: 1.7;
     }
 
-    /* ============================================================
-       SECTION 4 — PENUTUP / CLOSING
-       ============================================================ */
     #penutup { text-align: center; }
 
     .closing-label {
@@ -618,9 +572,6 @@
       line-height: 1.9;
     }
 
-    /* ============================================================
-       TOMBOL RAHASIA
-       ============================================================ */
     .secret-btn {
       display: inline-flex;
       align-items: center;
@@ -645,9 +596,6 @@
 
     .secret-btn .btn-icon { font-size: 1rem; }
 
-    /* ============================================================
-       MODAL — PESAN RAHASIA
-       ============================================================ */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -736,9 +684,6 @@
       border-color: var(--border-glow);
     }
 
-    /* ============================================================
-       CONFETTI CANVAS
-       ============================================================ */
     #confetti-canvas {
       position: fixed;
       inset: 0;
@@ -746,9 +691,6 @@
       pointer-events: none;
     }
 
-    /* ============================================================
-       FOOTER
-       ============================================================ */
     footer {
       text-align: center;
       padding: 3rem 2rem;
@@ -760,17 +702,11 @@
       z-index: 1;
     }
 
-    /* ============================================================
-       ANIMATIONS
-       ============================================================ */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ============================================================
-       RESPONSIVE
-       ============================================================ */
     @media (max-width: 600px) {
       nav { gap: 1.4rem; padding: 1rem 1.2rem; }
       nav a { font-size: 0.68rem; letter-spacing: 0.12em; }
@@ -778,9 +714,6 @@
       #music-btn { bottom: 1.2rem; right: 1.2rem; }
     }
 
-    /* ============================================================
-       FLOATING ORB — decorative bg element
-       ============================================================ */
     .orb {
       position: fixed;
       border-radius: 50%;
@@ -813,17 +746,11 @@
 
 <body>
 
-  <!-- ============================================================
-       BACKGROUND ELEMENTS (jangan diedit)
-       ============================================================ -->
   <canvas id="particles"></canvas>
   <canvas id="confetti-canvas"></canvas>
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
 
-  <!-- ============================================================
-       NAVIGASI — Edit label menu di sini jika perlu
-       ============================================================ -->
   <nav>
     <a href="#landing">Beranda</a>
     <a href="#pesan">Pesan</a>
@@ -831,14 +758,9 @@
     <a href="#penutup">Penutup</a>
   </nav>
 
-  <!-- ============================================================
-       MUSIC PLAYER — panel mini + tombol di pojok kanan bawah
-       ============================================================ -->
   <div id="music-player">
 
-    <!-- Panel info (muncul saat musik playing) -->
     <div id="music-panel">
-      <!-- Equalizer bars animasi -->
       <div class="eq-bars" aria-hidden="true">
         <div class="eq-bar"></div>
         <div class="eq-bar"></div>
@@ -847,62 +769,40 @@
         <div class="eq-bar"></div>
       </div>
 
-      <!-- Nama lagu — EDIT THIS jika ingin ganti teks -->
       <div class="music-label">
         <strong id="music-title">lagu.mp3</strong>
         Sedang diputar
       </div>
 
-      <!-- Volume slider -->
       <div class="vol-wrap" title="Volume">
         <span class="vol-icon">🔈</span>
         <input type="range" id="vol-slider" min="0" max="1" step="0.05" value="0.7">
       </div>
     </div>
 
-    <!-- Tombol utama play/pause -->
     <button id="music-btn" title="Putar / Pause Musik" aria-label="Putar musik">
       🎵
     </button>
 
   </div>
 
-  <!-- Toast notif error kecil -->
   <div id="music-toast"></div>
 
-  <!-- ============================================================
-       AUDIO — Ganti URL di sumber (src) dengan link lagu Anda
-       Format yang didukung: mp3, ogg
-       ============================================================ -->
-  <!-- ============================================================
-       AUDIO — File lagu.mp3 ada di folder audio/
-       Struktur folder yang benar:
-         index.html          ← file ini
-         audio/
-           lagu.mp3          ← file musikmu di sini
-
-       EDIT THIS: Ganti path di bawah jika nama folder/file berbeda
-       ============================================================ -->
   <audio id="bg-music" loop preload="auto">
     <source src="audio/lagu.mp3" type="audio/mpeg">
     <source src="audio/lagu.ogg" type="audio/ogg">
   </audio>
-  <!-- ============================================================
-       SECTION 1: LANDING / HALAMAN PEMBUKA
-       ============================================================ -->
+ 
   <section id="landing">
     <div style="text-align:center; position:relative; z-index:2; padding: 7rem 2rem 5rem;">
 
-      <!-- EDIT THIS: Teks kecil di atas nama -->
       <p class="hero-eyebrow">Dengan ucapan tulus &amp; doa</p>
 
-      <!-- EDIT THIS: Nama orang yang berulang tahun -->
       <h1 class="hero-name">
         Selamat<br>
         Ulang <em>Tahun</em>
       </h1>
 
-      <!-- EDIT THIS: Nama + tanggal -->
       <p class="hero-date" style="opacity:0;animation:fadeUp 1s ease 0.9s forwards">
         Nese &nbsp;·&nbsp; 5 Mei 2026
       </p>
@@ -914,9 +814,7 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       SECTION 2: PESAN UTAMA — Ucapan dan pesan dari hati
-       ============================================================ -->
+
   <section id="pesan">
     <div class="container">
 
@@ -925,39 +823,38 @@
 
       <!-- EDIT THIS: Judul pesan -->
       <h2 class="pesan-heading reveal">
-        Hari ini adalah<br>
-        <em>milikmu sepenuhnya.</em>
+        Hari ini mungkin<br>
+        <em>adalah hari yang sangat penting bagimu.</em>
       </h2>
 
       <div class="pesan-body reveal">
 
         <!-- EDIT THIS: Paragraf pesan pertama -->
         <p>
-          Ada hari-hari yang terasa biasa — dan ada hari-hari yang pelan-pelan
-          mengukir sesuatu yang tidak akan terlupa. Hari ini adalah salah satunya.
-          Sebuah hari yang menandai betapa jauh kamu sudah melangkah, betapa banyak
-          hal yang sudah kamu lewati, dan betapa luar biasanya kamu tetap berdiri.
+          Yah mungkin ini pertama kalinya aku ngebuat website, dan pas sekali deketan
+          dengan ulang tahunmu kawann, jadi sekalian aja aku buat sebagai hadiah ulang
+          tahun. Aku ngebuat ini 2 minggu, so i hope you enjoyed.
         </p>
 
         <!-- EDIT THIS: Kutipan spesial -->
         <div class="quote-block">
           <p>
-            "Kamu bukan hanya bertambah usia — kamu bertambah dalam keberanian,
-            dalam kebijaksanaan, dan dalam kehangatan yang kamu bawa
-            ke setiap sudut kehidupan orang-orang di sekitarmu."
+            "Mungkin dari sekian banyak orang yang pernah aku temui,
+            orang yang paling berkesan dalam hidupku salah satunya itu
+            kamu."
           </p>
         </div>
 
         <!-- EDIT THIS: Paragraf pesan kedua -->
         <p>
-          Di hari yang istimewa ini, aku hanya ingin kamu tahu: kehadiranmu berarti.
-          Bukan karena hal-hal besar yang kamu lakukan, tapi karena caramu yang kecil
-          dan hangat membuat dunia ini terasa sedikit lebih baik.
+          Di hari yang istimewa ini, aku hanya ingin kamu tahu: kehadiranmu berarti dalam
+          kehidupanku. Meskipun yah mungkin aku gapernah mengatakan secara eksplisit, tapi
+          kamu mengubah cara pandangku terhadap manusia dan hidup itu sendiri.
         </p>
 
         <!-- EDIT THIS: Paragraf pesan ketiga -->
         <p>
-          Semoga tahun ini membawamu lebih banyak tawa daripada air mata,
+          Well semoga tahun ini membawamu lebih banyak tawa daripada air mata,
           lebih banyak kedamaian daripada kecemasan, dan lebih banyak momen
           yang membuatmu bersyukur telah hidup.
         </p>
@@ -969,36 +866,27 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       SECTION 3: KENANGAN — Kartu-kartu memori
-       ============================================================ -->
   <section id="kenangan">
     <div class="container">
 
-      <!-- EDIT THIS: Label section -->
       <p class="section-label reveal">Kenangan yang Terukir</p>
 
-      <!-- EDIT THIS: Judul section kenangan -->
       <h2 class="section-heading reveal">
         Momen-momen yang<br>selalu kuingat
       </h2>
 
-      <!-- ============================================================
-           EDIT THIS: Kartu kenangan — duplikat atau hapus .memory-card
-           sesuai kebutuhan. Ganti emoji, tahun, judul, dan deskripsinya.
-           ============================================================ -->
       <div class="memory-grid">
 
         <!-- Kartu Kenangan 1 -->
         <div class="memory-card reveal">
           <span class="memory-icon">🌅</span>
-          <p class="memory-year">Momen Pertama</p>
+          <p class="memory-year">Prolog</p>
           <!-- EDIT THIS -->
-          <h3 class="memory-title">Saat Pertama Kita Bertemu</h3>
+          <h3 class="memory-title">Momen Awal</h3>
           <!-- EDIT THIS -->
           <p class="memory-desc">
-            Tidak ada yang bisa menduga bahwa pertemuan sederhana itu akan menjadi
-            awal dari begitu banyak cerita indah.
+           Entahlah mungkin tahap pertama aku kenal kamu secara mendalam itu
+           ketika kita dulu pembinaan bareng terus mabar ml :v
           </p>
         </div>
 
@@ -1007,11 +895,12 @@
           <span class="memory-icon">☕</span>
           <p class="memory-year">Kebiasaan Kita</p>
           <!-- EDIT THIS -->
-          <h3 class="memory-title">Obrolan Tanpa Batas Waktu</h3>
+          <h3 class="memory-title">Yapping Bareng</h3>
           <!-- EDIT THIS -->
           <p class="memory-desc">
-            Entah itu di kafe, di jalan, atau sekadar lewat pesan — percakapan
-            bersamamu selalu terasa menyegarkan.
+            Kita dulu bertukar pikiran entah itu masalah kita, filsafat, sejarah
+            lomba, dsb. Kamu selalu memberikan feedback yang bagus, dan itu
+            yang aku suka.
           </p>
         </div>
 
@@ -1020,11 +909,11 @@
           <span class="memory-icon">🌊</span>
           <p class="memory-year">Petualangan</p>
           <!-- EDIT THIS -->
-          <h3 class="memory-title">Perjalanan yang Berkesan</h3>
+          <h3 class="memory-title">Lomba Bareng</h3>
           <!-- EDIT THIS -->
           <p class="memory-desc">
-            Setiap tempat yang pernah kita kunjungi bersama meninggalkan jejak
-            yang tidak akan pernah memudar dari ingatan.
+            Kita pernah jadi rival sehat di Pembinaan IPA dan jadi satu tim di
+            lomba lomba pas kelas 9, pasti Bu Aini dan Bapak Wildan Kamali bangga.
           </p>
         </div>
 
@@ -1036,8 +925,8 @@
           <h3 class="memory-title">Saat Kamu Bangkit Kembali</h3>
           <!-- EDIT THIS -->
           <p class="memory-desc">
-            Aku menyaksikan caramu menghadapi tantangan — dan itu adalah
-            salah satu hal terbesar yang membuatku kagum padamu.
+            Salah satu hebat darimu sesuai pengamatanku selama ini yaitu kamu
+            cepat untuk bangkit, dan selalu husnuzan kepada Allah SWT.
           </p>
         </div>
 
@@ -1049,8 +938,8 @@
           <h3 class="memory-title">Tawa yang Tidak Bisa Berhenti</h3>
           <!-- EDIT THIS -->
           <p class="memory-desc">
-            Ada beberapa momen di mana kita tertawa begitu keras sampai lupa
-            kenapa kita tertawa — dan aku selalu merindukan itu.
+            Kadang ada beberapa situasi kocak yang masih kuinget sampe
+            sekarang sih.
           </p>
         </div>
 
@@ -1059,11 +948,12 @@
           <span class="memory-icon">🌙</span>
           <p class="memory-year">Kedepan</p>
           <!-- EDIT THIS -->
-          <h3 class="memory-title">Mimpi yang Belum Kita Capai</h3>
+          <h3 class="memory-title">Mimpi yang Belum Dicapai</h3>
           <!-- EDIT THIS -->
           <p class="memory-desc">
-            Masih banyak kenangan yang belum terbuat — dan aku tidak sabar
-            untuk menciptakannya bersamamu.
+            Semoga di usia 16 tahun ini dan untuk kedepannya kamu bisa meraih
+            cita citamu selama ini, dan aku selalu mendukung dari balik layar
+            #NeseDiterimaDiUnair/ITS/PTN Lainnya.
           </p>
         </div>
 
@@ -1072,82 +962,59 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       SECTION 4: PENUTUP — Closing dan tombol pesan rahasia
-       ============================================================ -->
   <section id="penutup">
     <div class="container" style="display:flex;flex-direction:column;align-items:center;">
 
-      <!-- EDIT THIS: Label penutup -->
       <p class="closing-label reveal">Pesan Terakhir</p>
 
-      <!-- EDIT THIS: Heading penutup -->
       <h2 class="closing-heading reveal">
         Semoga hidupmu selalu<br>
         <em>penuh cahaya.</em>
       </h2>
 
-      <!-- EDIT THIS: Paragraf penutup -->
       <p class="closing-body reveal">
         Terima kasih sudah ada. Terima kasih atas tawa, cerita, dan waktu yang pernah
         kamu berikan. Di hari ulang tahunmu ini, aku mendoakanmu dari dalam hati —
         semoga semua yang kamu impikan perlahan-lahan menjadi nyata.
       </p>
 
-      <!-- Tombol Pesan Rahasia — klik untuk melihat pesan tersembunyi -->
       <button class="secret-btn reveal" onclick="bukaModal()">
         <span class="btn-icon">🎁</span>
-        <!-- EDIT THIS: Teks tombol -->
         Buka Pesan Rahasiamu
       </button>
 
     </div>
   </section>
 
-  <!-- ============================================================
-       FOOTER
-       ============================================================ -->
   <footer>
     <!-- EDIT THIS: Teks footer -->
-    Dibuat dengan ❤️ khusus untukmu &nbsp;·&nbsp; 2025
+    Dari Ilham, 2026. Dan Untukmu Puluhan Tahun Yang Akan Datang. &nbsp;·&nbsp; 2026
   </footer>
 
-  <!-- ============================================================
-       MODAL: PESAN RAHASIA
-       ============================================================ -->
+
   <div class="modal-overlay" id="modal">
     <div class="modal">
 
-      <!-- EDIT THIS: Emoji di modal -->
-      <span class="modal-emoji">💛</span>
+      <span class="modal-emoji">😁</span>
 
-      <!-- EDIT THIS: Judul pesan rahasia -->
       <h3 class="modal-heading">
         Ini adalah pesan<br>yang hanya untukmu
       </h3>
 
-      <!-- EDIT THIS: Isi pesan rahasia -->
       <p class="modal-text">
-        Kamu mungkin tidak selalu merasa cukup — tapi bagiku, kamu sudah lebih
-        dari cukup. Kamu adalah salah satu alasan mengapa aku percaya bahwa
-        dunia ini masih memiliki banyak kebaikan di dalamnya.<br><br>
-        Selamat ulang tahun. Terus tumbuh. Terus bersinar. Dan jangan pernah
-        lupa bahwa ada yang selalu mendoakanmu dari jauh.
+        Intinya adalah, terimakasih telah datang di hidupku ness. Paling kalo
+        gaada kamu Ilham yang sekarang gabakal ada. Maaf juga bikin ini yang
+        kesannya terlalu sentimental  wkwkwk<br><br>
+        Selamat ulang tahun. Terus tumbuh. Terus bersinar. Aku tunggu saat kamu
+        sukses, aku akan mendoakanmu kawan.
       </p>
 
-      <!-- Tombol tutup modal -->
       <button class="modal-close" onclick="tutupModal()">Tutup</button>
 
     </div>
   </div>
 
-  <!-- ============================================================
-       JAVASCRIPT — Jangan ubah kecuali kamu sudah paham
-       ============================================================ -->
   <script>
-    /* ============================================================
-       1. PARTIKEL BINTANG (background canvas)
-       ============================================================ */
     (function() {
       const canvas = document.getElementById('particles');
       const ctx = canvas.getContext('2d');
@@ -1190,11 +1057,7 @@
       requestAnimationFrame(draw);
       window.addEventListener('resize', () => { resize(); createStars(); });
     })();
-
-    /* ============================================================
-       2. SCROLL REVEAL — elemen dengan class "reveal" muncul saat
-          masuk viewport
-       ============================================================ */
+    
     const revealEls = document.querySelectorAll('.reveal');
 
     const observer = new IntersectionObserver((entries) => {
@@ -1207,10 +1070,6 @@
 
     revealEls.forEach(el => observer.observe(el));
 
-    /* ============================================================
-       3. SISTEM MUSIK — robust, dengan loading state, error handling,
-          volume control, dan visual feedback lengkap
-       ============================================================ */
     (function() {
       const player    = document.getElementById('music-player');
       const btn       = document.getElementById('music-btn');
@@ -1230,12 +1089,8 @@
         titleEl.textContent = decodeURIComponent(parts[parts.length - 1]);
       }
 
-      /* ── Set volume awal dari slider ── */
       audio.volume = parseFloat(volSlider.value);
 
-      /* ──────────────────────────────────────────
-         FUNGSI UTAMA: set state & update tampilan
-         ────────────────────────────────────────── */
       function setState(newState) {
         state = newState;
         player.classList.remove('playing', 'paused', 'loading', 'error');
@@ -1265,7 +1120,6 @@
         }
       }
 
-      /* ── Toast notifikasi error ── */
       let toastTimer = null;
       function showToast(msg, duration = 4000) {
         toast.textContent = msg;
@@ -1277,16 +1131,12 @@
         toast.classList.remove('show');
       }
 
-      /* ──────────────────────────────────────────
-         FUNGSI PLAY — dengan fade-in volume
-         ────────────────────────────────────────── */
       function playMusic() {
         // Jika sudah playing, tidak perlu reload
         if (state === 'playing') return;
 
         setState('loading');
 
-        /* Pastikan src ada dan valid */
         const srcTag = audio.querySelector('source');
         if (!srcTag || !srcTag.getAttribute('src')) {
           setState('error');
@@ -1294,12 +1144,10 @@
           return;
         }
 
-        /* Jika audio belum pernah di-load, muat dulu */
         if (audio.readyState < 2) {
           audio.load();
         }
 
-        /* Volume mulai dari 0, lalu fade in */
         audio.volume = 0;
         audio.play()
           .then(() => {
@@ -1321,7 +1169,6 @@
           });
       }
 
-      /* ── Fade volume (dari → ke) dalam durasi ms ── */
       function fadeVolume(audioEl, targetVol, durationMs) {
         const startVol  = audioEl.volume;
         const startTime = performance.now();
@@ -1336,9 +1183,6 @@
 
       function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
 
-      /* ──────────────────────────────────────────
-         FUNGSI PAUSE — dengan fade-out volume
-         ────────────────────────────────────────── */
       function pauseMusic() {
         if (state !== 'playing') return;
         const targetVol = parseFloat(volSlider.value);
@@ -1350,9 +1194,7 @@
         }, 520);
       }
 
-      /* ──────────────────────────────────────────
-         EVENT: Klik tombol
-         ────────────────────────────────────────── */
+   
       btn.addEventListener('click', () => {
         if (state === 'loading') return; // jangan double-click saat loading
 
@@ -1363,9 +1205,6 @@
         }
       });
 
-      /* ──────────────────────────────────────────
-         EVENT: Volume slider
-         ────────────────────────────────────────── */
       volSlider.addEventListener('input', () => {
         const v = parseFloat(volSlider.value);
         audio.volume = v;
@@ -1376,11 +1215,7 @@
         }
       });
 
-      /* ──────────────────────────────────────────
-         EVENT: Audio native events
-         ────────────────────────────────────────── */
 
-      // Audio selesai load dan siap diputar
       audio.addEventListener('canplaythrough', () => {
         if (state === 'loading') {
           // sudah loading → lanjutkan play (tapi audio.play() sudah di-call)
@@ -1413,9 +1248,6 @@
 
     })(); // end IIFE musik
 
-    /* ============================================================
-       4. MODAL PESAN RAHASIA
-       ============================================================ */
     function bukaModal() {
       document.getElementById('modal').classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -1438,16 +1270,12 @@
       if (e.key === 'Escape') tutupModal();
     });
 
-    /* ============================================================
-       5. CONFETTI — animasi partikel warna-warni saat modal dibuka
-       ============================================================ */
     const confettiCanvas = document.getElementById('confetti-canvas');
     const cCtx = confettiCanvas.getContext('2d');
     let confettiPieces = [];
     let confettiRunning = false;
     let confettiRAF = null;
 
-    /* EDIT THIS: Warna-warna confetti */
     const CONFETTI_COLORS = [
       '#c8a97e', '#e8d4b0', '#f0e6cc',
       '#a0c8e0', '#d4a0c8', '#c8d4a0', '#e8a0a0'
@@ -1507,7 +1335,6 @@
       resizeConfetti();
       if (!confettiRAF) drawConfetti();
 
-      // Hentikan spawn setelah 4 detik, biarkan yang ada jatuh
       setTimeout(() => { confettiRunning = false; }, 4000);
     }
 
